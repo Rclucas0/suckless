@@ -61,6 +61,12 @@
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
+  # Enable and Start emacs daemon
+  services.emacs = {
+    enable = true;
+    package = pkgs.emacs;  
+  };
+
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
@@ -70,6 +76,7 @@
   # Enable Bluetooth and Start on Boot
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # Enable Flakes And Nix Commands
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -109,9 +116,10 @@
 
   environment.systemPackages = with pkgs; [
     alacritty
-    brave btop blueman bibata-cursors
+    brave btop bibata-cursors
     discord dunst dmenu
     dracula-icon-theme dracula-theme
+    fd
     gparted gruvbox-gtk-theme gruvbox-dark-icons-gtk git gimp gnumake gnome.adwaita-icon-theme
     htop
     kitty
@@ -120,7 +128,7 @@
     newsboat neofetch neovim nitrogen
     pavucontrol papirus-icon-theme picom prismlauncher
     qemu_full
-    rofi rose-pine-icon-theme
+    rofi rose-pine-icon-theme ripgrep
     tela-circle-icon-theme thonny
     vim
     (slstatus.overrideAttrs (_:{ src = /home/rileyl/suckless/slstatus;}))
